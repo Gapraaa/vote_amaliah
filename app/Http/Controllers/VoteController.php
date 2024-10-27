@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vote;
+use App\Models\School;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,20 @@ class VoteController extends Controller
 
     public function DataVote() {
     
+    // Fetch all schools
+    $schools = School::all();
+
+    // Fetch candidates with their associated vote counts
     $candidates = Candidate::withCount('votes')->get();
 
-    return view('admin.datavote.index', compact('candidates'));
+    // Group candidates by their associated school
+    $candidatesBySchool = [];
+    foreach ($candidates as $candidate) {
+        $candidatesBySchool[$candidate->school_id][] = $candidate; // Assuming Candidate has a school_id field
     }
+
+    return view('admin.datavote.index', compact('candidatesBySchool', 'schools'));
+}
 
 
     public function index() {

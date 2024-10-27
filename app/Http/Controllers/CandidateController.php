@@ -19,17 +19,14 @@ class CandidateController extends Controller
         $candidatesSchool1 = Candidate::with(['ketua', 'wakil', 'school'])
             ->where('school_id', 1)
             ->get();
-    
         $candidatesSchool2 = Candidate::with(['ketua', 'wakil', 'school'])
             ->where('school_id', 2)
             ->get();
-    
         // Ambil semua pengguna untuk keperluan dropdown
         $users = User::all();
-    
-        return view('admin.candidate.index', compact('candidatesSchool1', 'candidatesSchool2', 'users'));
+        $schools = School::all();
+        return view('admin.candidate.index', compact('candidatesSchool1', 'candidatesSchool2', 'users', 'schools'));
     }
-    
 
     /**
      * Show the form for creating a new candidate.
@@ -49,6 +46,9 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
+
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
@@ -100,6 +100,9 @@ class CandidateController extends Controller
      */
     public function update(Request $request, Candidate $candidate)
     {
+
+        // dd($request->all());
+
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
@@ -109,7 +112,7 @@ class CandidateController extends Controller
             'misi' => 'required|string',
             'ketua_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'wakil_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'school_id' => 'required|exists:schools,id', // Validasi untuk school_id
+            'school_id' => 'required|exists:schools,id',
         ]);
 
         // Cek apakah ada file gambar ketua baru yang diunggah
@@ -132,18 +135,22 @@ class CandidateController extends Controller
             $candidate->wakil_image = $request->file('wakil_image')->store('images/candidates', 'public');
         }
 
-        // Update data kandidat
+        // Update data kandidat, tetapi tidak mengganti gambar yang sudah ada
         $candidate->update([
             'name' => $request->input('name'),
             'ketua_id' => $request->input('ketua_id'),
             'wakil_id' => $request->input('wakil_id'),
             'visi' => $request->input('visi'),
             'misi' => $request->input('misi'),
-            'school_id' => $request->input('school_id'), // Update school_id
+            'school_id' => $request->input('school_id'),
+            // Hanya update gambar jika baru di-upload
+            'ketua_image' => $candidate->ketua_image,
+            'wakil_image' => $candidate->wakil_image,
         ]);
 
         return redirect()->route('candidate.index')->with('success', 'Candidate updated successfully.');
     }
+
 
     /**
      * Remove the specified candidate from storage.

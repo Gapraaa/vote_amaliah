@@ -13,15 +13,26 @@ class DataUserController extends Controller
 {
     // Show the users list
     public function index()
-    {
-        // Fetch users with their related kelas, role, and school
-        $users = User::with(['kelas', 'role', 'school'])->get();
-        $kelas = Kelas::all();  // Fetch all classes for the dropdown
-        $roles = Role::all();   // Fetch all roles for the dropdown
-        $schools = School::all(); // Fetch all schools for the dropdown
+{
+    // Fetch all schools
+    $schools = School::all();
 
-        return view('admin.datauser.index', compact('users', 'kelas', 'roles', 'schools'));
+    // Initialize arrays to hold users for each school
+    $usersBySchool = [];
+
+    // Loop through each school and fetch users associated with it
+    foreach ($schools as $school) {
+        $usersBySchool[$school->id] = User::with(['kelas', 'role'])
+            ->where('school_id', $school->id)
+            ->get();
     }
+
+    $kelas = Kelas::all();  // Fetch all classes for the dropdown
+    $roles = Role::all();   // Fetch all roles for the dropdown
+
+    return view('admin.datauser.index', compact('usersBySchool', 'kelas', 'roles', 'schools'));
+}
+
 
     // Update a specific user
     public function update(Request $request, $id)

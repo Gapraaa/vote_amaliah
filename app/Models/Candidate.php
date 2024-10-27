@@ -18,9 +18,11 @@ class Candidate extends Model
         'name',
         'ketua_id',
         'wakil_id',
+        'ketua_image',
+        'wakil_image',
         'visi',
         'misi',
-        'image',
+        'school_id',
     ];
 
     /**

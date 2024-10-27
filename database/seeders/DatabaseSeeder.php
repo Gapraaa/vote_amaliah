@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             SchoolSeeder::class,
             UserSeeder::class,
+            UserSeeder2::class,
             AdminSeeder::class,
         ]);
         
