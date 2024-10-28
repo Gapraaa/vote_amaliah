@@ -45,7 +45,7 @@ class UserSeeder2 extends Seeder
                 'password' => Hash::make(str_replace('.', '', $item[1])), // NIS sebagai password (hashed, tanpa titik)
                 'nisn' => $item[0], // NISN
                 'nis' => str_replace('.', '', $item[1]), // NIS tanpa titik
-                'kelas_id' => 1, // Misalnya, kelas_id = 1
+                'kelas_id' => 3, // Misalnya, kelas_id = 1
                 'role_id' => 1,  // Misalnya, role_id = 1 untuk siswa
                 'school_id' => 2,
             ]);

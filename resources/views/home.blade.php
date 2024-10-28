@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{-- <link href="/css/output.css" rel="stylesheet" /> --}}
     @vite('resources/css/output.css')
     <!-- typography -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <!-- icon title browser -->
-    <link rel="icon" href="{{asset('asset/image/logo title.png')}}" type="image/icon" />
+    <link rel="icon" href="{{ asset('asset/image/logo title.png') }}" type="image/icon" />
     <title>Smk Amaliah 1&2 Ciawi</title>
     <!-- css runing text -->
     <style>
@@ -39,7 +38,7 @@
     <!-- home interface -->
     <div class="flex flex-col items-center justify-center h-screen p-8">
         <!-- logo smk amaliah -->
-        <img class="mb-6 w-[128px] h-[116px]" src="{{ asset('asset/image/logo smk.png')}}" alt="logo smk amaliah" />
+        <img class="mb-6 w-[128px] h-[116px]" src="{{ asset('asset/image/logo smk.png') }}" alt="logo smk amaliah" />
         <!-- runing text -->
         <h1 id="typing-text"
             class="text-hitam text-[29px] md:text-2xl font-montserrat font-semibold text-center mb-4 typing-container">
@@ -53,7 +52,6 @@
     <!-- home interface end -->
 </body>
 <!-- js native -->
-{{-- <script src="resources\js\home.js"></script> --}}
 @vite('resources/js/home.js')
 
 </html>

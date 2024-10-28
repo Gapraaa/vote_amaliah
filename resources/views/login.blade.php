@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- <link href="css/output.css" rel="stylesheet"> --}}
     @vite('resources/css/output.css')
     <!-- typography -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -59,7 +58,7 @@
                     <div class="mb-4">
                         <input
                             class="border rounded-full w-full py-3 px-3 text-gray-700 leading-tight  focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200
-              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
                             id="username" type="text" name="username" value="{{ old('username') }}" required
                             autofocus placeholder="Masukan NISN" />
                         @error('username')
@@ -70,7 +69,7 @@
                     <div class="mb-4">
                         <input
                             class="border rounded-full w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200
-              disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
                             id="password" type="password" name="password" required
                             placeholder="Passwordmu Adalah NIS!" />
                         @error('password')
@@ -79,11 +78,11 @@
                     </div>
                     <!-- button login -->
                     <div class="mb-6">
-                            <button
-                                class="bg-ijo-200 w-full hover:bg-ijo-400 transition duration-200 ease-in-out active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda text-white font-semibold font-montserrat py-3 px-4 rounded-full"
-                                type="submit">
-                                Login
-                            </button>
+                        <button
+                            class="bg-ijo-200 w-full hover:bg-ijo-400 transition duration-200 ease-in-out active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda text-white font-semibold font-montserrat py-3 px-4 rounded-full"
+                            type="submit">
+                            Login
+                        </button>
                     </div>
                 </form>
             </div>
@@ -91,7 +90,6 @@
     </div>
 </body>
 <!-- js native -->
-{{-- <script src="js/login.js"></script> --}}
 @vite('resources/js/login.js')
 
 </html>

@@ -11,60 +11,84 @@ use Illuminate\Support\Facades\Auth;
 class VoteController extends Controller
 {
 
-    public function DataVote() {
-    
-    // Fetch all schools
-    $schools = School::all();
+    public function DataVote()
+    {
 
-    // Fetch candidates with their associated vote counts
-    $candidates = Candidate::withCount('votes')->get();
+        // Fetch all schools
+        $schools = School::all();
 
-    // Group candidates by their associated school
-    $candidatesBySchool = [];
-    foreach ($candidates as $candidate) {
-        $candidatesBySchool[$candidate->school_id][] = $candidate; // Assuming Candidate has a school_id field
+        // Fetch candidates with their associated vote counts
+        $candidates = Candidate::withCount('votes')->get();
+
+        // Group candidates by their associated school
+        $candidatesBySchool = [];
+        foreach ($candidates as $candidate) {
+            $candidatesBySchool[$candidate->school_id][] = $candidate; // Assuming Candidate has a school_id field
+        }
+
+        return view('admin.datavote.index', compact('candidatesBySchool', 'schools'));
     }
 
-    return view('admin.datavote.index', compact('candidatesBySchool', 'schools'));
-}
 
+    public function index()
+    {
+        // Dapatkan user yang sedang login
+        $user = Auth::user();
 
-    public function index() {
-        // Ambil semua kandidat dari database
-        $candidates = Candidate::all();
+        // Ambil kandidat dari sekolah yang sama dengan user yang login
+        $candidates = Candidate::where('school_id', $user->school_id)->get();
 
         // Kirim data kandidat ke view 'vote'
         return view('vote', compact('candidates'));
     }
 
+
     public function store(Request $request)
     {
+        // Dapatkan user yang sedang login
         $user = Auth::user();
 
-        // Cek apakah pengguna sudah memberikan suara
-        if (Vote::where('user_id', $user->id)->exists()) {
-            Auth::logout();
+        // Validasi kandidat berdasarkan ID dan sekolah
+        $candidate = Candidate::where('id', $request->input('candidate_id'))
+            ->where('school_id', $user->school_id)
+            ->first();
+
+        // Periksa apakah kandidat valid
+        if (!$candidate) {
+            // Jika kandidat tidak ditemukan atau berasal dari sekolah berbeda, tolak akses
+            return redirect()->back()->withErrors('Anda hanya dapat memilih kandidat dari sekolah Anda sendiri.');
+        }
+
+        // Lakukan pengecekan apakah user sudah pernah vote sebelumnya
+        $hasVoted = \DB::table('votes')
+            ->where('user_id', $user->id)
+            ->exists();
+
+        if ($hasVoted) {
+            // Jika user sudah pernah vote, arahkan ke halaman "sudah vote"
             return redirect()->route('already_vote');
         }
 
-        // Validasi input
-        $request->validate([
-            'candidate_id' => 'required|exists:candidates,id',
-        ]);
-
-        // Simpan vote
-        Vote::create([
+        // Simpan vote baru jika belum pernah vote
+        \DB::table('votes')->insert([
             'user_id' => $user->id,
-            'candidate_id' => $request->input('candidate_id'),
+            'candidate_id' => $candidate->id,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        Auth::logout();
-        return redirect()->route('end')->with('success', 'Vote berhasil disimpan.');
 
+        // Redirect ke halaman sukses voting
+        return redirect()->route('end');
     }
 
-    public function endindex() 
-    {
-        return view('end');
-    }
+
+    public function endindex()
+{
+    // Logout user
+    Auth::logout();
+
+    // Tampilkan halaman 'end'
+    return view('end');
 }
 
+}

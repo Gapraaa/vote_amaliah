@@ -19,6 +19,11 @@ class Vote extends Model
         'candidate_id',
     ];
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+    
     /**
      * Relasi dengan model User.
      */

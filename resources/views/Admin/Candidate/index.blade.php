@@ -111,7 +111,8 @@
                                                                 <label for="school_id">Sekolah</label>
                                                                 <select name="school_id" class="form-control" required>
                                                                     @foreach ($schools as $school)
-                                                                        <option value="{{ $school->id }}" {{ $candidate->school_id == $school->id ? 'selected' : '' }}>
+                                                                        <option value="{{ $school->id }}"
+                                                                            {{ $candidate->school_id == $school->id ? 'selected' : '' }}>
                                                                             {{ $school->name }}
                                                                         </option>
                                                                     @endforeach
@@ -278,9 +279,11 @@
                                                             <div class="form-group">
                                                                 <div class="form-group">
                                                                     <label for="school_id">Sekolah</label>
-                                                                    <select name="school_id" class="form-control" required>
+                                                                    <select name="school_id" class="form-control"
+                                                                        required>
                                                                         @foreach ($schools as $school)
-                                                                            <option value="{{ $school->id }}" {{ $candidate->school_id == $school->id ? 'selected' : '' }}>
+                                                                            <option value="{{ $school->id }}"
+                                                                                {{ $candidate->school_id == $school->id ? 'selected' : '' }}>
                                                                                 {{ $school->name }}
                                                                             </option>
                                                                         @endforeach

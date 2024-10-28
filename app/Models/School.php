@@ -18,6 +18,11 @@ class School extends Model
         return $this->hasMany(User::class);
     }
 
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class);
+    }
+
     public function candidates()
     {
         return $this->hasMany(Candidate::class);

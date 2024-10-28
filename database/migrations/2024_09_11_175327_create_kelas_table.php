@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_kelas')->unique(); // Kode kelas yang unik
             $table->string('nama_kelas'); // Nama kelas (misalnya: "Kelas 10 IPA 1")
+            $table->foreignId('school_id')->constrained('schools')->onDelete('cascade'); // Asosiasi kandidat dengan sekolah
             $table->timestamps();
         });
     }
