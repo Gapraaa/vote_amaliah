@@ -44,8 +44,8 @@
             class="text-hitam text-[29px] md:text-2xl font-montserrat font-semibold text-center mb-4 typing-container">
         </h1>
         <!-- button "mulai vote" -->
-        <a href="/login"
-            class="w-[142px] h-[42px] flex items-center justify-center transition duration-200 ease-in-out text-white font-semibold font-montserrat bg-ijo-200 hover:bg-ijo-400 active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda rounded-full">Mulai
+        <a href="{{ route('login') }}"
+            class="w-[142px] h-[42px] flex items-center justify-center transition duration-200 ease-in-out text-white font-semibold font-montserrat bg-ijo-400 hover:bg-ijo-360 active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda rounded-full">Mulai
             Vote
         </a>
     </div>

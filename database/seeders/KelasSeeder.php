@@ -17,6 +17,7 @@ class KelasSeeder extends Seeder
         DB::table('kelas')->insert([
             'kode_kelas' => 'XIIPPLG1',
             'nama_kelas' => '12 PPLG 1',
+            'school_id' => '1',
         ]);
     }
 }

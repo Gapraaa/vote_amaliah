@@ -67,12 +67,12 @@
         // Menambahkan kelas show untuk memulai transisi teks
         thankYouText.classList.add('show');
         additionalText.classList.add('show');
+
+        // Kembali ke halaman utama setelah 3 detik
+        setTimeout(() => {
+            window.location.href = "{{ route('home') }}"; // Ganti '/' dengan rute home sesuai aplikasi
+        }, 7000); // Waktu dalam milidetik (3000 ms = 3 detik)
     });
-
-    // Redirect ke halaman home setelah 3 detik
-    setTimeout(function() {
-        window.location.href = "{{ route('home') }}";
-    }, 7000);
 </script>
-
+    
 </html>

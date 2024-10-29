@@ -42,7 +42,7 @@
                                                 <th>NIS</th>
                                                 <th>Kelas</th>
                                                 <th>Role</th>
-                                                <th>Status Vote</th> <!-- Kolom Status Vote -->
+                                                <th>Status Vote</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -56,7 +56,7 @@
                                                     <td>{{ $user->kelas ? $user->kelas->nama_kelas : '-' }}</td>
                                                     <td>{{ $user->role->name }}</td>
                                                     <td>
-                                                        {{ $user->vote ? 'Sudah Vote' : 'Belum Vote' }} <!-- Menampilkan status vote -->
+                                                        {{ $user->has_voted ? 'Sudah Vote' : 'Belum Vote' }}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -68,8 +68,9 @@
                     @endforeach
                 </div>
             </div>
-            
-            
+
+
+
         </div>
     </section>
 </div>
@@ -91,7 +92,7 @@
                         <label for="name">Nama</label>
                         <input type="text" name="name" class="form-control" required>
                     </div>
-                    
+
                     <!-- User Type Selector -->
                     <div class="form-group">
                         <label for="user_type_create">Tipe User</label>

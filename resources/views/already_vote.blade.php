@@ -21,4 +21,9 @@
     </div>
 </body>
 
+<script>
+    setTimeout(() => {
+            window.location.href = "{{ route('home') }}"; // Ganti '/' dengan rute home sesuai aplikasi
+        }, 7000);
+</script>
 </html>

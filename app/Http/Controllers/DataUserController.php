@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Role;
-use App\Models\School; // Import School model
+use App\Models\School;
+use app\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,25 +14,31 @@ class DataUserController extends Controller
 {
     // Show the users list
     public function index()
-{
-    // Fetch all schools
-    $schools = School::all();
+    {
+        // Fetch all schools
+        $schools = School::all();
 
-    // Initialize arrays to hold users for each school
-    $usersBySchool = [];
+        // Initialize arrays to hold users for each school
+        $usersBySchool = [];
 
-    // Loop through each school and fetch users associated with it
-    foreach ($schools as $school) {
-        $usersBySchool[$school->id] = User::with(['kelas', 'role'])
-            ->where('school_id', $school->id)
-            ->get();
+        // Loop through each school and fetch users associated with it
+        foreach ($schools as $school) {
+            $usersBySchool[$school->id] = User::with(['kelas', 'role'])
+                ->where('school_id', $school->id)
+                ->get()
+                ->map(function ($user) {
+                    // Check if the user has voted
+                    $user->has_voted = $user->votes()->exists();
+                    return $user;
+                });
+        }
+
+        $kelas = Kelas::all();  // Fetch all classes for the dropdown
+        $roles = Role::all();    // Fetch all roles for the dropdown
+
+        return view('admin.datauser.index', compact('usersBySchool', 'kelas', 'roles', 'schools'));
     }
 
-    $kelas = Kelas::all();  // Fetch all classes for the dropdown
-    $roles = Role::all();   // Fetch all roles for the dropdown
-
-    return view('admin.datauser.index', compact('usersBySchool', 'kelas', 'roles', 'schools'));
-}
 
 
     // Update a specific user
