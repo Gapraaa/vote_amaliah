@@ -18,10 +18,11 @@ class CreateCandidatesTable extends Migration
             $table->foreignId('wakil_id')->nullable()->constrained('users')->onDelete('cascade'); // Wakil dari tabel users
             $table->text('visi');
             $table->text('misi');
-            $table->string('candidate_image')->nullable(); // Gambar kandidat (ketua dan wakil)
+            $table->string('candidate_image'); // Gambar kandidat (hanya satu kolom)
             $table->foreignId('school_id')->constrained('schools')->onDelete('cascade'); // Asosiasi kandidat dengan sekolah
             $table->timestamps();
         });
+        
     }
     /**
      * Reverse the migrations.

@@ -26,12 +26,12 @@
             </button>
 
             <!-- Tabel Kandidat Sekolah 1 -->
-            <h3>Kandidat Amaliah 1</h3>
+            <h3>Kandidat Sekolah 1</h3>
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Daftar Kandidat Amaliah 1</h3>
+                            <h3 class="card-title">Daftar Kandidat Sekolah 1</h3>
                         </div>
                         <div class="card-body">
                             <table id="candidatesTableSchool1" class="table table-bordered table-striped">
@@ -57,7 +57,7 @@
                                             <td>{{ $candidate->visi }}</td>
                                             <td>{{ $candidate->misi }}</td>
                                             <td>
-                                                @if ($candidate->cadidate_image)
+                                                @if ($candidate->candidate_image)
                                                     <img src="{{ asset('storage/' . $candidate->candidate_image) }}"
                                                         alt="Ketua Image" width="50">
                                                 @else
@@ -185,12 +185,12 @@
             </div>
 
             <!-- Tabel Kandidat Sekolah 2 -->
-            <h3>Kandidat Amaliah 2</h3>
+            <h3>Kandidat Sekolah 2</h3>
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Daftar Kandidat Amaliah 2</h3>
+                            <h3 class="card-title">Daftar Kandidat Sekolah 2</h3>
                         </div>
                         <div class="card-body">
                             <table id="candidatesTableSchool2" class="table table-bordered table-striped">
@@ -202,7 +202,8 @@
                                         <th>Wakil</th>
                                         <th>Visi</th>
                                         <th>Misi</th>
-                                        <th>Foto Kandidat</th>
+                                        <th>Gambar Ketua</th>
+                                        <th>Gambar Wakil</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -216,9 +217,17 @@
                                             <td>{{ $candidate->visi }}</td>
                                             <td>{{ $candidate->misi }}</td>
                                             <td>
-                                                @if ($candidate->candidate_image)
-                                                    <img src="{{ asset('storage/' . $candidate->candidate_image) }}"
+                                                @if ($candidate->ketua_image)
+                                                    <img src="{{ asset('storage/' . $candidate->ketua_image) }}"
                                                         alt="Ketua Image" width="50">
+                                                @else
+                                                    <span>Tidak ada gambar</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($candidate->wakil_image)
+                                                    <img src="{{ asset('storage/' . $candidate->wakil_image) }}"
+                                                        alt="Wakil Image" width="50">
                                                 @else
                                                     <span>Tidak ada gambar</span>
                                                 @endif
@@ -352,75 +361,79 @@
 
     <!-- Modal Tambah Kandidat -->
     <div class="modal fade" id="createCandidateModal" tabindex="-1" role="dialog"
-        aria-labelledby="createCandidateModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createCandidateModalLabel">Tambah Kandidat</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('candidate.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <!-- Sekolah -->
-                        <div class="form-group">
-                            <label for="school_id">Sekolah</label>
-                            <select name="school_id" id="school_id" class="form-control" required>
-                                <option value="">Pilih Sekolah</option>
-                                @foreach ($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+    aria-labelledby="createCandidateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createCandidateModalLabel">Tambah Kandidat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('candidate.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <!-- Sekolah -->
+                    <div class="form-group">
+                        <label for="school_id">Sekolah</label>
+                        <select name="school_id" id="school_id" class="form-control" required>
+                            <option value="">Pilih Sekolah</option>
+                            @foreach ($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <!-- Nama Kandidat -->
-                        <div class="form-group">
-                            <label for="name">Nama Kandidat (Opsional)</label>
-                            <input type="text" name="name" class="form-control"
-                                placeholder="Contoh: Pasangan Ketua dan Wakil" required>
-                        </div>
+                    <!-- Nama Kandidat -->
+                    <div class="form-group">
+                        <label for="name">Nama Kandidat (Opsional)</label>
+                        <input type="text" name="name" class="form-control"
+                            placeholder="Contoh: Pasangan Ketua dan Wakil" required>
+                    </div>
 
-                        <!-- Ketua -->
-                        <div class="form-group">
-                            <label for="ketua_id">Ketua</label>
-                            <select name="ketua_id" id="ketua_id" class="form-control" required>
-                                <option value="">Pilih Ketua</option>
-                                <!-- Options populated dynamically based on selected school -->
-                            </select>
-                        </div>
-                        <!-- Wakil -->
-                        <div class="form-group">
-                            <label for="wakil_id">Wakil</label>
-                            <select name="wakil_id" id="wakil_id" class="form-control">
-                                <option value="">Pilih Wakil (Opsional)</option>
-                                <!-- Options populated dynamically based on selected school -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="candidate_image">Gambar Kandidat</label>
-                            <input type="file" name="candidate_image" class="form-control" accept="image/*">
-                        </div>
+                    <!-- Ketua -->
+                    <div class="form-group">
+                        <label for="ketua_id">Ketua</label>
+                        <select name="ketua_id" id="ketua_id" class="form-control" required>
+                            <option value="">Pilih Ketua</option>
+                            <!-- Options populated dynamically based on selected school -->
+                        </select>
+                    </div>
 
-                        <!-- Visi -->
-                        <div class="form-group">
-                            <label for="visi">Visi</label>
-                            <textarea name="visi" class="form-control" rows="3" required></textarea>
-                        </div>
+                    <!-- Wakil -->
+                    <div class="form-group">
+                        <label for="wakil_id">Wakil</label>
+                        <select name="wakil_id" id="wakil_id" class="form-control">
+                            <option value="">Pilih Wakil (Opsional)</option>
+                            <!-- Options populated dynamically based on selected school -->
+                        </select>
+                    </div>
 
-                        <!-- Misi -->
-                        <div class="form-group">
-                            <label for="misi">Misi</label>
-                            <textarea name="misi" class="form-control" rows="3" required></textarea>
-                        </div>
+                    <!-- Gambar Kandidat -->
+                    <div class="form-group">
+                        <label for="candidate_image">Gambar Kandidat</label>
+                        <input type="file" name="candidate_image" class="form-control" accept="image/*" required>
+                    </div>
 
-                        <button type="submit" class="btn btn-primary">Tambah Kandidat</button>
-                    </form>
-                </div>
+                    <!-- Visi -->
+                    <div class="form-group">
+                        <label for="visi">Visi</label>
+                        <textarea name="visi" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Misi -->
+                    <div class="form-group">
+                        <label for="misi">Misi</label>
+                        <textarea name="misi" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Tambah Kandidat</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Script untuk inisialisasi DataTables -->
     <script>
