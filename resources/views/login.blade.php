@@ -1,19 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @vite('resources/css/output.css')
     <!-- typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <!-- icon title browser -->
     <link rel="icon" href="{{ asset('asset/image/logo title.png') }}" type="image/icon" />
     <title>Smk Amaliah 1&2 Ciawi</title>
     <!-- css runing text -->
     <style>
         .typing-container {
-            font-family: 'Montserrat', sans-serif;
+            font-family: "Montserrat", sans-serif;
             white-space: nowrap;
             overflow: hidden;
             border-right: 2px solid;
@@ -32,7 +32,7 @@
             }
 
             50% {
-                border-color: #3A3A3A;
+                border-color: #3a3a3a;
             }
         }
     </style>
@@ -41,8 +41,8 @@
 <body class="bg-putih-200">
     <div class="flex flex-col items-center justify-center h-screen p-8">
         <!-- logo smk amaliah -->
-        <img class="mb-6" src="{{ asset('asset/image/maskotamaliah.png') }}" alt="logo smk amaliah">
-        <!-- running text -->
+        <img class="mb-6" src="{{ asset('asset/image/maskotamaliah.png') }}" alt="logo smk amaliah" />
+        <!-- runing text -->
         <h1 id="typing-text"
             class="text-hitam text-[29px] md:text-2xl font-montserrat font-semibold text-center mb-4 typing-container">
         </h1>
@@ -50,11 +50,11 @@
 
     <div class="bg-cover bg-center bg-fixed background">
         <div class="h-screen flex justify-center items-center">
-            <div class="bg-white mx-4 p-8 rounded-2xl shadow-md w-full md:w-1/2 lg:w-1/3">
-                <!-- form login -->
+            <div class="bg-white mx-4 p-8 rounded-2xl shadow-md w-full md:w-1/2 lg:w-1/3 border-2 border-gray-300">
+                <!-- fromt login -->
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-                    <!-- form username -->
+                    <!-- from nama -->
                     <div class="mb-4">
                         <input
                             class="font-montserrat border rounded-full w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
@@ -64,7 +64,7 @@
                             <span>{{ $message }}</span>
                         @enderror
                     </div>
-                    <!-- form password -->
+                    <!-- from nis -->
                     <div class="mb-4">
                         <input
                             class="font-montserrat border rounded-full w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
@@ -76,15 +76,15 @@
                     </div>
                     <!-- button login -->
                     <div class="mb-6">
-                        <button
-                            class="bg-ijo-400 hover:bg-ijo-360 w-full transition duration-200 ease-in-out active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda text-white font-semibold font-montserrat py-3 px-4 rounded-full"
-                            type="submit">
-                            Login
-                        </button>
-                    </div>
-                </form>
+                    <button
+                        class="bg-ijo-400 hover:bg-ijo-360 w-full transition duration-200 ease-in-out active:bg-ijo-400 focus:outline-none focus:ring focus:ring-ijomuda text-white font-semibold font-montserrat py-3 px-4 rounded-full"
+                        type="submit">
+                        Login
+                    </button>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 </body>
 <!-- js native -->

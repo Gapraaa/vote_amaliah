@@ -26,12 +26,12 @@
             </button>
 
             <!-- Tabel Kandidat Sekolah 1 -->
-            <h3>Kandidat Sekolah 1</h3>
+            <h3>Kandidat Amaliah 1</h3>
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Daftar Kandidat Sekolah 1</h3>
+                            <h3 class="card-title">Daftar Kandidat Amaliah 1</h3>
                         </div>
                         <div class="card-body">
                             <table id="candidatesTableSchool1" class="table table-bordered table-striped">
@@ -43,8 +43,7 @@
                                         <th>Wakil</th>
                                         <th>Visi</th>
                                         <th>Misi</th>
-                                        <th>Gambar Ketua</th>
-                                        <th>Gambar Wakil</th>
+                                        <th>Foto Kandidat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,17 +57,9 @@
                                             <td>{{ $candidate->visi }}</td>
                                             <td>{{ $candidate->misi }}</td>
                                             <td>
-                                                @if ($candidate->ketua_image)
-                                                    <img src="{{ asset('storage/' . $candidate->ketua_image) }}"
+                                                @if ($candidate->cadidate_image)
+                                                    <img src="{{ asset('storage/' . $candidate->candidate_image) }}"
                                                         alt="Ketua Image" width="50">
-                                                @else
-                                                    <span>Tidak ada gambar</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($candidate->wakil_image)
-                                                    <img src="{{ asset('storage/' . $candidate->wakil_image) }}"
-                                                        alt="Wakil Image" width="50">
                                                 @else
                                                     <span>Tidak ada gambar</span>
                                                 @endif
@@ -194,12 +185,12 @@
             </div>
 
             <!-- Tabel Kandidat Sekolah 2 -->
-            <h3>Kandidat Sekolah 2</h3>
+            <h3>Kandidat Amaliah 2</h3>
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Daftar Kandidat Sekolah 2</h3>
+                            <h3 class="card-title">Daftar Kandidat Amaliah 2</h3>
                         </div>
                         <div class="card-body">
                             <table id="candidatesTableSchool2" class="table table-bordered table-striped">
@@ -211,8 +202,7 @@
                                         <th>Wakil</th>
                                         <th>Visi</th>
                                         <th>Misi</th>
-                                        <th>Gambar Ketua</th>
-                                        <th>Gambar Wakil</th>
+                                        <th>Foto Kandidat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -226,17 +216,9 @@
                                             <td>{{ $candidate->visi }}</td>
                                             <td>{{ $candidate->misi }}</td>
                                             <td>
-                                                @if ($candidate->ketua_image)
-                                                    <img src="{{ asset('storage/' . $candidate->ketua_image) }}"
+                                                @if ($candidate->candidate_image)
+                                                    <img src="{{ asset('storage/' . $candidate->candidate_image) }}"
                                                         alt="Ketua Image" width="50">
-                                                @else
-                                                    <span>Tidak ada gambar</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($candidate->wakil_image)
-                                                    <img src="{{ asset('storage/' . $candidate->wakil_image) }}"
-                                                        alt="Wakil Image" width="50">
                                                 @else
                                                     <span>Tidak ada gambar</span>
                                                 @endif
@@ -408,11 +390,6 @@
                                 <!-- Options populated dynamically based on selected school -->
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="ketua_image">Gambar Ketua</label>
-                            <input type="file" name="ketua_image" class="form-control" accept="image/*">
-                        </div>
-
                         <!-- Wakil -->
                         <div class="form-group">
                             <label for="wakil_id">Wakil</label>
@@ -422,8 +399,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="wakil_image">Gambar Wakil</label>
-                            <input type="file" name="wakil_image" class="form-control" accept="image/*">
+                            <label for="candidate_image">Gambar Kandidat</label>
+                            <input type="file" name="candidate_image" class="form-control" accept="image/*">
                         </div>
 
                         <!-- Visi -->

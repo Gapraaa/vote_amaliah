@@ -46,9 +46,10 @@
 
     <!-- Tulisan Terimakasih -->
     <p id="thankYouText" class="text-4xl text-hitam-200 font-montserrat font-bold transition-text">Terimakasih<span
-            class="text-ijo-400">.</span></p>
+    class="text-ijo-400">.</span></p>
     <!-- Teks tambahan -->
-    <p id="additionalText" class="font-poppins text-sm font-medium additional-text transition-text">by:Team Developer
+    <p id="additionalText"
+    class="font-poppins text-sm font-medium additional-text transition-text">by:Team Developer
     </p>
 </body>
 
@@ -68,11 +69,10 @@
         thankYouText.classList.add('show');
         additionalText.classList.add('show');
 
-        // Kembali ke halaman utama setelah 3 detik
         setTimeout(() => {
             window.location.href = "{{ route('home') }}"; // Ganti '/' dengan rute home sesuai aplikasi
-        }, 7000); // Waktu dalam milidetik (3000 ms = 3 detik)
+        }, 5000);
     });
 </script>
-    
+
 </html>

@@ -1,6 +1,6 @@
 @include('layout.header')
-
 @include('layout.sidebar')
+
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -32,7 +32,9 @@
                                     <h3 class="card-title">Daftar User - {{ $school->name }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <table id="usersTable" class="table table-bordered table-striped">
+                                    <!-- Table for User Data -->
+                                    <table id="usersTable-{{ $school->id }}"
+                                        class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -55,9 +57,7 @@
                                                     <td>{{ $user->nis ?? '-' }}</td>
                                                     <td>{{ $user->kelas ? $user->kelas->nama_kelas : '-' }}</td>
                                                     <td>{{ $user->role->name }}</td>
-                                                    <td>
-                                                        {{ $user->has_voted ? 'Sudah Vote' : 'Belum Vote' }}
-                                                    </td>
+                                                    <td>{{ $user->has_voted ? 'Sudah Vote' : 'Belum Vote' }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -68,15 +68,13 @@
                     @endforeach
                 </div>
             </div>
-
-
-
         </div>
     </section>
 </div>
 
 <!-- Create User Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -106,7 +104,8 @@
                     <div id="form-siswa-create">
                         <div class="form-group">
                             <label for="nisn">NISN</label>
-                            <input type="text" name="nisn" id="nisn" class="form-control" oninput="autoFillUsername()" required>
+                            <input type="text" name="nisn" id="nisn" class="form-control"
+                                oninput="autoFillUsername()" required>
                         </div>
 
                         <div class="form-group">
@@ -169,10 +168,28 @@
 
 @include('layout.footer')
 
+<!-- DataTables CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <script>
+    $(document).ready(function() {
+        // Initialize DataTables for each table with unique ID
+        @foreach ($schools as $school)
+            $('#usersTable-{{ $school->id }}').DataTable({
+                responsive: true,
+                autoWidth: false,
+                paging: true,
+                searching: true,
+                info: true,
+            });
+        @endforeach
+    });
+
     function autoFillUsername() {
         var nisn = document.getElementById('nisn').value;
-        document.getElementById('username').value = nisn; // Set Username to NISN value
+        document.getElementById('username').value = nisn;
     }
 
     function toggleCreateForm() {
