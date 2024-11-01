@@ -40,7 +40,11 @@
                                     src="{{ asset('storage/' . $candidate->candidate_image) }}" alt="foto ketua osis">
                             </div>
                             <h2 class="text-lg md:text-xl font-semibold text-center font-montserrat mt-2 mb-2">
-                                {{ $candidate->ketua->name }} & {{ $candidate->wakil->name ?? '' }}
+                                {{ $candidate->ketua->name }}
+                                <br>
+                                &
+                                <br>
+                                {{ $candidate->wakil->name ?? '' }}
                             </h2>
                             <hr class="w-[210px] h-0.4 bg-[#D7D7D7] rounded-md my-2.5">
                             <p class="text-abu-200 font-medium font-poppins">
