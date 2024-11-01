@@ -45,34 +45,34 @@ class CandidateController extends Controller
      * Store a newly created candidate in storage.
      */
     public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'ketua_id' => 'required|exists:users,id',
-        'wakil_id' => 'nullable|exists:users,id',
-        'visi' => 'required|string',
-        'misi' => 'required|string',
-        'candidate_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar wajib diunggah
-        'school_id' => 'required|exists:schools,id',
-    ]);
+    {
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'ketua_id' => 'required|exists:users,id',
+            'wakil_id' => 'nullable|exists:users,id',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'candidate_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3048', // Gambar wajib diunggah
+            'school_id' => 'required|exists:schools,id',
+        ]);
 
-    // Simpan gambar kandidat
-    $candidateImagePath = $request->file('candidate_image')->store('images/candidates', 'public');
+        // Simpan gambar kandidat
+        $candidateImagePath = $request->file('candidate_image')->store('images/candidates', 'public');
 
-    // Simpan data kandidat
-    Candidate::create([
-        'name' => $request->input('name'),
-        'ketua_id' => $request->input('ketua_id'),
-        'wakil_id' => $request->input('wakil_id'),
-        'visi' => $request->input('visi'),
-        'misi' => $request->input('misi'),
-        'candidate_image' => $candidateImagePath,
-        'school_id' => $request->input('school_id'),
-    ]);
+        // Simpan data kandidat
+        Candidate::create([
+            'name' => $request->input('name'),
+            'ketua_id' => $request->input('ketua_id'),
+            'wakil_id' => $request->input('wakil_id'),
+            'visi' => $request->input('visi'),
+            'misi' => $request->input('misi'),
+            'candidate_image' => $candidateImagePath,
+            'school_id' => $request->input('school_id'),
+        ]);
 
-    return redirect()->route('candidate.index')->with('success', 'Candidate created successfully.');
-}
+        return redirect()->route('candidate.index')->with('success', 'Candidate created successfully.');
+    }
 
     /**
      * Show the form for editing the specified candidate.
@@ -102,29 +102,18 @@ class CandidateController extends Controller
             'wakil_id' => 'nullable|exists:users,id',
             'visi' => 'required|string',
             'misi' => 'required|string',
-            'ketua_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'wakil_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'candidate_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:3048', // Gambar wajib diunggah
             'school_id' => 'required|exists:schools,id',
         ]);
 
         // Cek apakah ada file gambar ketua baru yang diunggah
-        if ($request->hasFile('ketua_image')) {
+        if ($request->hasFile('candidate_image')) {
             // Hapus gambar lama jika ada
-            if ($candidate->ketua_image) {
-                Storage::disk('public')->delete($candidate->ketua_image);
+            if ($candidate->candidate_image) {
+                Storage::disk('public')->delete($candidate->candidate_image);
             }
             // Simpan gambar baru
-            $candidate->ketua_image = $request->file('ketua_image')->store('images/candidates', 'public');
-        }
-
-        // Cek apakah ada file gambar wakil baru yang diunggah
-        if ($request->hasFile('wakil_image')) {
-            // Hapus gambar lama jika ada
-            if ($candidate->wakil_image) {
-                Storage::disk('public')->delete($candidate->wakil_image);
-            }
-            // Simpan gambar baru
-            $candidate->wakil_image = $request->file('wakil_image')->store('images/candidates', 'public');
+            $candidate->candidate_image = $request->file('candidate_image')->store('images/candidates', 'public');
         }
 
         // Update data kandidat, tetapi tidak mengganti gambar yang sudah ada
@@ -136,8 +125,7 @@ class CandidateController extends Controller
             'misi' => $request->input('misi'),
             'school_id' => $request->input('school_id'),
             // Hanya update gambar jika baru di-upload
-            'ketua_image' => $candidate->ketua_image,
-            'wakil_image' => $candidate->wakil_image,
+            'candidate_image' => $candidate->candidate_image,
         ]);
 
         return redirect()->route('candidate.index')->with('success', 'Candidate updated successfully.');
@@ -153,13 +141,8 @@ class CandidateController extends Controller
         $candidate = Candidate::findOrFail($id);
 
         // Hapus gambar ketua jika ada
-        if ($candidate->ketua_image) {
-            Storage::disk('public')->delete($candidate->ketua_image);
-        }
-
-        // Hapus gambar wakil jika ada
-        if ($candidate->wakil_image) {
-            Storage::disk('public')->delete($candidate->wakil_image);
+        if ($candidate->candidate_image) {
+            Storage::disk('public')->delete($candidate->candidate_image);
         }
 
         // Hapus data kandidat

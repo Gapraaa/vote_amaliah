@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\KelasController;
 
@@ -39,10 +40,7 @@ Route::get('/already_vote', function () {
 // });
 
 Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/candidate', [CandidateController::class, 'index'])->name('candidate.index');
     Route::post('/candidate/store', [CandidateController::class, 'store'])->name('candidate.store');
     Route::put('/candidate/{candidate}/update', [CandidateController::class, 'update'])->name('candidate.update');
