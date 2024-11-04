@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Vote;
 use App\Models\School;
+use App\Models\User;
+use App\Models\Role;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,16 +34,18 @@ class VoteController extends Controller
 
     public function index()
     {
-        // Dapatkan user yang sedang login
         $user = Auth::user();
 
-        // Ambil kandidat dari sekolah yang sama dengan user yang login
-        $candidates = Candidate::where('school_id', $user->school_id)->get();
+        if ($user->hasRole('Guru') || $user->hasRole('Pegawai')) {
+            $candidates = Candidate::all(); // Menampilkan semua kandidat
+            return view('vote2', compact('candidates'));
+        } else {
+            $candidates = Candidate::where('school_id', $user->school_id)->get(); // Hanya kandidat dari sekolah user
+        }
 
         // Kirim data kandidat ke view 'vote'
         return view('vote', compact('candidates'));
     }
-
 
     public function store(Request $request)
     {
@@ -83,12 +87,11 @@ class VoteController extends Controller
 
 
     public function endindex()
-{
-    // Logout user
-    Auth::logout();
+    {
+        // Logout user
+        Auth::logout();
 
-    // Tampilkan halaman 'end'
-    return view('end');
-}
-
+        // Tampilkan halaman 'end'
+        return view('end');
+    }
 }

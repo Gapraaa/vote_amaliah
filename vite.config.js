@@ -8,8 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        host: '192.168.0.100', // Untuk memungkinkan akses dari perangkat lain di jaringan lokal
-        port: 5173,       // Port default Vite
-    },
+    // server: {
+    //     host: '192.168.50.190', // Untuk memungkinkan akses dari perangkat lain di jaringan lokal
+    //     port: 5173,       // Port default Vite
+    // },
 });

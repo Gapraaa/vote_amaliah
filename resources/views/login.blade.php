@@ -35,6 +35,19 @@
                 border-color: #3a3a3a;
             }
         }
+        
+        /* Untuk Chrome, Safari, Edge, Opera */
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+/* Untuk Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
     </style>
 </head>
 
@@ -58,7 +71,7 @@
                     <div class="mb-4">
                         <input
                             class="font-montserrat border rounded-full w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-                            id="username" type="text" name="username" value="{{ old('username') }}" required
+                            id="username" type="number" name="username" value="{{ old('username') }}" required
                             autofocus placeholder="Masukan NISN" />
                         @error('username')
                             <span>{{ $message }}</span>
@@ -68,7 +81,7 @@
                     <div class="mb-4">
                         <input
                             class="font-montserrat border rounded-full w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:border-hitam-200 focus:ring-1 focus:ring-hitam-200 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-                            id="password" type="password" name="password" required
+                            id="password" type="number" name="password" required
                             placeholder="Passwordmu Adalah NIS!" />
                         @error('password')
                             <span>{{ $message }}</span>

@@ -400,7 +400,6 @@
         </div>
     </div>
 
-
     <!-- Script untuk inisialisasi DataTables -->
     <script>
         $(function() {
@@ -417,9 +416,10 @@
                 "searching": true,
             });
         });
+
         document.addEventListener('DOMContentLoaded', function() {
             const users =
-                @json($users); // Array of user objects with school_id, id, and name attributes
+            @json($users); // Array of user objects with school_id, id, and name attributes
             const schoolSelect = document.getElementById('school_id');
             const ketuaSelect = document.getElementById('ketua_id');
             const wakilSelect = document.getElementById('wakil_id');
@@ -443,6 +443,26 @@
                     wakilOption.textContent = user.name;
                     wakilSelect.appendChild(wakilOption);
                 });
+            });
+
+            // Function to filter options in the select dropdown
+            function filterOptions(selectElement, searchTerm) {
+                const options = selectElement.options;
+                for (let i = 1; i < options.length; i++) { // Start from 1 to skip the default option
+                    const optionText = options[i].text.toLowerCase();
+                    options[i].style.display = optionText.includes(searchTerm) ? "" : "none"; // Show or hide option
+                }
+            }
+
+            // Event listeners for searching within dropdowns
+            ketuaSelect.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filterOptions(this, searchTerm);
+            });
+
+            wakilSelect.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filterOptions(this, searchTerm);
             });
         });
     </script>
